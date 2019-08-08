@@ -8,7 +8,6 @@ import (
 	"os"
 	"swapp_go/model"
 	"swapp_go/utils"
-	"time"
 )
 
 var (
@@ -20,7 +19,7 @@ var (
 func main() {
 
 	//Esta función está para timear el tiempo de ejecución.
-	defer utils.TimeTrack(time.Now(), "main")
+	//defer utils.TimeTrack(time.Now(), "main")
 
 	if len(os.Args) < 3 {
 		fmt.Println("Error, ingrese dos personajes.")
@@ -68,11 +67,7 @@ func getCharacter(name string, c chan model.People) {
 		os.Exit(1)
 	}
 	defer resp.Body.Close()
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		fmt.Println("Something went wrong.")
-		os.Exit(1)
-	}
+	body, _ := ioutil.ReadAll(resp.Body)
 	var ret model.PeopleContainer
 	json.Unmarshal(body, &ret)
 
@@ -91,11 +86,7 @@ func getFilm(URL string) model.Film {
 	}
 	defer resp.Body.Close()
 	var film model.Film
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		fmt.Println("Something went wrong.")
-		os.Exit(1)
-	}
+	body, _ := ioutil.ReadAll(resp.Body)
 	json.Unmarshal(body, &film)
 
 	return film
