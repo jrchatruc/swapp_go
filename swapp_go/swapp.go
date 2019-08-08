@@ -68,7 +68,11 @@ func getCharacter(name string, c chan model.People) {
 		os.Exit(1)
 	}
 	defer resp.Body.Close()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Println("Something went wrong.")
+		os.Exit(1)
+	}
 	var ret model.PeopleContainer
 	json.Unmarshal(body, &ret)
 
@@ -87,7 +91,11 @@ func getFilm(URL string) model.Film {
 	}
 	defer resp.Body.Close()
 	var film model.Film
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Println("Something went wrong.")
+		os.Exit(1)
+	}
 	json.Unmarshal(body, &film)
 
 	return film
