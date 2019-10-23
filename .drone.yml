@@ -1,6 +1,7 @@
 ---
-kind: pipeline
-name: build
+pipeline:
+  name: build-image
+  type: docker
 
 steps:
 - name: notify
@@ -10,8 +11,6 @@ steps:
     username: drone
     webhook:
       from_secret: slack_webhook
-  template: >
-    hello
 
 trigger:
   branch:
